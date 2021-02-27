@@ -62,10 +62,6 @@ class DoctrineORMInfo
         $assocsConfigs = [];
 
         foreach ($assocNames as $assocName) {
-            if (!$metadata->isAssociationInverseSide($assocName)) {
-                continue;
-            }
-
             $class = $metadata->getAssociationTargetClass($assocName);
 
             if ($metadata->isSingleValuedAssociation($assocName)) {
@@ -77,6 +73,10 @@ class DoctrineORMInfo
                     'required' => !$nullable,
                 ];
 
+                continue;
+            }
+
+            if (!$metadata->isAssociationInverseSide($assocName)) {
                 continue;
             }
 
